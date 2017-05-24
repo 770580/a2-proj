@@ -15,5 +15,14 @@ export const APP_ROUTES: Routes = [
   {
     path: 'about', 
     component: AboutComponent
+  },
+  {
+    path: '',
+    redirectTo: '/home',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    component: HomeComponent
   }
 ];
