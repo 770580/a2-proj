@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { AlertModule } from 'ngx-bootstrap';
 
 import { APP_ROUTES } from './app.routes';
 
@@ -24,7 +25,8 @@ import { AboutComponent } from './about/about.component';
     BrowserModule,
     FormsModule,
     HttpModule,
-    RouterModule.forRoot(APP_ROUTES)
+    RouterModule.forRoot(APP_ROUTES),
+    AlertModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
