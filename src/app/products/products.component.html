@@ -1,27 +1,5 @@
 <div class='loader' *ngIf='pending'></div>
 <div class='flex-row row'>
-  <div *ngFor='let product of products' class='col-xs-6 col-sm-4 col-lg-3'>
-    <div class='thumbnail '>
-      <img src={{product.image}} alt='' />
-      <div class='caption'>
-        <h3>
-          {{product.name}}
-        </h3>
-        <p class='flex-text text-muted'>
-          {{product.description}}
-        </p>
-        <p class='lead'>
-          {{product.price}} &#8381;
-        </p>
-        <p *ngIf='product.quantity !== 0; else outOfStock'>
-          В наличии {{product.quantity}} шт.
-        </p>
-        <ng-template #outOfStock>
-          <p>
-            Нет в наличии
-          </p>
-        </ng-template>
-      </div>
-    </div>
-  </div>
+  <app-product *ngFor='let product of products' [product]='product' class='col-xs-6 col-sm-4 col-lg-3'>
+  </app-product>
 </div>
