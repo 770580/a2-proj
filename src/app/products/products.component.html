@@ -12,6 +12,14 @@
         <p class='lead'>
           {{product.price}} &#8381;
         </p>
+        <p *ngIf='product.quantity !== 0; else outOfStock'>
+          В наличии {{product.quantity}} шт.
+        </p>
+        <ng-template #outOfStock>
+          <p>
+            Нет в наличии
+          </p>
+        </ng-template>
       </div>
     </div>
   </div>
