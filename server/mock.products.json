@@ -1,0 +1,39 @@
+{
+  "products":  [
+    {
+      "id": 1,
+      "name": "Макароны",
+      "description": "Длинные и хрустящие",
+      "price": 34.25,
+      "image": "http://placehold.it/150/dff9f6"
+    },
+    {
+      "id": 2,
+      "name": "Яблоки",
+      "description": "Железо, которому позавидует даже железный человек",
+      "price": 2.00,
+      "image": "http://placehold.it/150/dff9f6"
+    },
+    {
+      "id": 3,
+      "name": "Бананы",
+      "description": "Радость миньена",
+      "price": 14.00,
+      "image": "http://placehold.it/150/dff9f6"
+    },
+    {
+      "id": 4,
+      "name": "Куриная грудка",
+      "description": "Нет боли, нет роста",
+      "price": 45.99,
+      "image": "http://placehold.it/150/dff9f6"
+    },
+    {
+      "id": 5,
+      "name": "Морская капуста",
+      "description": "Ваша русалка будет счастлива",
+      "price": 100.19,
+      "image": "http://placehold.it/150/dff9f6"
+    }
+  ]
+}
