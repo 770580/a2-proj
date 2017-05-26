@@ -1,4 +1,10 @@
-class Product {
+export class Product {
+  id: number;
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+
   constructor(product: any) {
     if(product !== Object(product)) {
       return;
