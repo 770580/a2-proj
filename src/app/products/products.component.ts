@@ -12,6 +12,7 @@ import { Product } from '../product.model';
 export class ProductsComponent implements OnInit {
   errorMessage: string;
   products: Product[];
+  pending: Boolean = true;
   mode = 'Observable';
 
   constructor(private productsService: ProductsService) {
@@ -24,8 +25,14 @@ export class ProductsComponent implements OnInit {
   getProducts() {
     this.productsService.getProducts()
       .subscribe(
-        products => this.products = products,
-        error => this.errorMessage = <any>error
+        products => {
+          this.products = products;
+          this.pending = false;
+        },
+        error => {
+          this.errorMessage = <any>error;
+          this.pending = false;
+        }
       );
   }
 }
