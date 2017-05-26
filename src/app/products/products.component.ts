@@ -12,7 +12,7 @@ import { Product } from '../product.model';
 export class ProductsComponent implements OnInit {
   errorMessage: string;
   products: Product[];
-  pending: Boolean = true;
+  pending: Boolean = false;
   mode = 'Observable';
 
   constructor(private productsService: ProductsService) {
@@ -23,6 +23,7 @@ export class ProductsComponent implements OnInit {
   }
 
   getProducts() {
+    this.pending = true;
     this.productsService.getProducts()
       .subscribe(
         products => {
