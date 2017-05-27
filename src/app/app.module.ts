@@ -13,6 +13,7 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
+import { ShoppingCartService } from './shopping-cart.service';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { ProductComponent } from './product/product.component';
     RouterModule.forRoot(APP_ROUTES),
     AlertModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ShoppingCartService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
