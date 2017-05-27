@@ -10,4 +10,8 @@ export class ShoppingCartService {
   addProduct(product: any) {
     this.products.push(product);
   }
+
+  getProducts() {
+    return this.products;
+  }
 }
