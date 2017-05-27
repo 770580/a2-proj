@@ -4,22 +4,34 @@ import { CartProduct } from './cart-product.model';
 
 @Injectable()
 export class ShoppingCartService {
-  products: CartProduct[] = [];
+  cartProducts: CartProduct[] = [];
+  totalPrice: Number;
 
   constructor() { }
 
   addProduct(product: Product) {
-    let existingProduct: CartProduct = this.products.find( item => item.product.id === product.id);
+    let existingProduct: CartProduct = this.cartProducts.find( item => item.product.id === product.id);
 
     if (existingProduct) {
       existingProduct.quanitity += 1;
     } else {
       let newProduct: CartProduct = new CartProduct(product);
-      this.products.push(newProduct);
+      this.cartProducts.push(newProduct);
     }
   }
 
   getProducts() {
-    return this.products;
+    this.setTotalPrice();
+    return this.cartProducts;
+  }
+
+  private setTotalPrice() {
+    this.totalPrice = this.cartProducts.reduce((total, cartProduct) => {
+      return (total + cartProduct.product.price * cartProduct.quanitity)
+    }, 0);
+  }
+
+  getTotalPrice() {
+    return this.totalPrice;
   }
 }
