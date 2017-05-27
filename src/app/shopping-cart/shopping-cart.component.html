@@ -3,12 +3,14 @@
     <tr>
       <th>Name</th>
       <th>Price</th>
+      <th>Quantity</th>
     </tr>
   </thead>
   <tbody>
-    <tr *ngFor='let product of products'>
-      <td>{{product.name}}</td>
-      <td>{{product.price}}</td>
+    <tr *ngFor='let cartProduct of cartProducts'>
+      <td>{{cartProduct.product.name}}</td>
+      <td>{{cartProduct.product.price}}</td>
+      <td>{{cartProduct.quanitity}}</td>
     </tr>
   </tbody>
 </table>
