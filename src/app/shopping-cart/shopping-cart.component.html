@@ -4,6 +4,7 @@
       <th>Name</th>
       <th>Price</th>
       <th>Quantity</th>
+      <th>Subtotal</th>
     </tr>
   </thead>
   <tbody>
@@ -11,6 +12,7 @@
       <td>{{cartProduct.product.name}}</td>
       <td>{{cartProduct.product.price}}</td>
       <td>{{cartProduct.quanitity}}</td>
+      <td>{{cartProduct.product.price * cartProduct.quanitity}}</td>
     </tr>
   </tbody>
 </table>
