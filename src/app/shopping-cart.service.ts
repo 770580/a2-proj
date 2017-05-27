@@ -9,13 +9,14 @@ export class ShoppingCartService {
   constructor() { }
 
   addProduct(product: Product) {
-    let newProduct: CartProduct = new CartProduct(product);
-
     let existingProduct: CartProduct = this.products.find( item => item.product.id === product.id);
 
-    existingProduct
-    ? existingProduct.quanitity += 1
-    : this.products.push(newProduct);
+    if (existingProduct) {
+      existingProduct.quanitity += 1;
+    } else {
+      let newProduct: CartProduct = new CartProduct(product);
+      this.products.push(newProduct);
+    }
   }
 
   getProducts() {
