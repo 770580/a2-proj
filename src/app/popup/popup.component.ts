@@ -7,8 +7,8 @@ import { Popup } from '../popup.model';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent implements OnInit {
-  //private popup: Popup;
   private popupList: Popup[] = [];
+  private lastId: number = 0;
 
   constructor() { }
 
@@ -16,6 +16,14 @@ export class PopupComponent implements OnInit {
   }
 
   doShow(params: any) {
-    this.popupList.push(new Popup(params));
+    let paramsWithID: Popup = {...params, id: this.lastId};
+
+    this.popupList.push(new Popup(paramsWithID));
+
+    this.lastId += 1;
+  }
+
+  afterClose(popup: Popup) {
+    this.popupList = this.popupList.filter(item => item.id !== popup.id);
   }
 }

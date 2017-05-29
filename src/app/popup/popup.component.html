@@ -1,5 +1,5 @@
 <div *ngFor='let popup of popupList'> 
-  <alert type={{popup.type}} dismissOnTimeout={{popup.delay}} dismissible={{popup.dismissible}}>
+  <alert type={{popup.type}} dismissOnTimeout={{popup.delay}} dismissible={{popup.dismissible}} (onClosed)='afterClose(popup)'>
     {{popup.text}}
   </alert>
 </div>
