@@ -1,0 +1,21 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Price</th>
+      <th>Quantity</th>
+      <th>Subtotal</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor='let cartProduct of cartProducts'>
+      <td>{{cartProduct.product.name}}</td>
+      <td>{{cartProduct.product.price | currency:'USD':true:'1.2-2'}}</td>
+      <td>{{cartProduct.quanitity}}</td>
+      <td>{{cartProduct.product.price * cartProduct.quanitity | currency:'USD':true:'1.2-2'}}</td>
+    </tr>
+    <tr>
+      <td colspan='4'>Total: {{totalPrice | currency:'USD':true:'1.2-2'}}</td>
+    </tr>
+  </tbody>
+</table>

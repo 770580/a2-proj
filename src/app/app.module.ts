@@ -13,6 +13,8 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
+import { ShoppingCartService } from './shopping-cart.service';
+import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +23,8 @@ import { ProductComponent } from './product/product.component';
     HomeComponent,
     ProductsComponent,
     AboutComponent,
-    ProductComponent
+    ProductComponent,
+    ShoppingCartComponent
   ],
   imports: [
     BrowserModule,
@@ -30,7 +33,7 @@ import { ProductComponent } from './product/product.component';
     RouterModule.forRoot(APP_ROUTES),
     AlertModule.forRoot()
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [ShoppingCartService],
+  bootstrap: [AppComponent],
 })
 export class AppModule { }
