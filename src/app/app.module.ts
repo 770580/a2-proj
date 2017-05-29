@@ -16,6 +16,7 @@ import { ProductComponent } from './product/product.component';
 import { ShoppingCartService } from './shopping-cart.service';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { PopupComponent } from './popup/popup.component';
+import { PopupService } from './popup.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,10 @@ import { PopupComponent } from './popup/popup.component';
     RouterModule.forRoot(APP_ROUTES),
     AlertModule.forRoot()
   ],
-  providers: [ShoppingCartService],
+  providers: [
+    ShoppingCartService,
+    PopupService
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule { }

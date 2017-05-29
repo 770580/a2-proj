@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Popup } from '../popup.model';
+import { PopupService } from '../popup.service';
 
 @Component({
   selector: 'app-popup',
@@ -8,22 +9,15 @@ import { Popup } from '../popup.model';
 })
 export class PopupComponent implements OnInit {
   private popupList: Popup[] = [];
-  private lastId: number = 0;
 
-  constructor() { }
+  constructor(private popupService: PopupService) {
+    this.popupList = this.popupService.getPopupList();
+  }
 
   ngOnInit() {
   }
 
-  doShow(params: any) {
-    let paramsWithID: Popup = {...params, id: this.lastId};
-
-    this.popupList.push(new Popup(paramsWithID));
-
-    this.lastId += 1;
-  }
-
   afterClose(popup: Popup) {
-    this.popupList = this.popupList.filter(item => item.id !== popup.id);
+    this.popupService.afterClose(popup);
   }
 }
