@@ -18,10 +18,11 @@ export class ShoppingCartService {
       let newProduct: CartProduct = new CartProduct(product);
       this.cartProducts.push(newProduct);
     }
+
+    this.setTotalPrice();
   }
 
   getProducts() {
-    this.setTotalPrice();
     return this.cartProducts;
   }
 
