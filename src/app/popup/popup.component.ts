@@ -7,7 +7,8 @@ import { Popup } from '../popup.model';
   styleUrls: ['./popup.component.css']
 })
 export class PopupComponent implements OnInit {
-  private popup: Popup;
+  //private popup: Popup;
+  private popupList: Popup[] = [];
 
   constructor() { }
 
@@ -15,6 +16,6 @@ export class PopupComponent implements OnInit {
   }
 
   doShow(params: any) {
-    this.popup = new Popup(params);
+    this.popupList.push(new Popup(params));
   }
 }
