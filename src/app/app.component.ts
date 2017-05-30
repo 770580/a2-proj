@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { PopupService } from './popup.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,14 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  
+  constructor(private popupService: PopupService) {
+    
+  }
+
+  ngOnInit() {
+    this.popupService.doShow({
+      text: 'App works!'
+    });
+  }
 }
