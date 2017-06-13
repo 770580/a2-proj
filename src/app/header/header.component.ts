@@ -12,11 +12,8 @@ export class HeaderComponent implements OnDestroy {
   subscription: Subscription;
 
   constructor(private shoppingCartService: ShoppingCartService) { 
-    this.subscription = shoppingCartService.changeTotalQuantity$.subscribe(
-      totalQuantity => {
-        this.totalQuantity = totalQuantity;
-      }
-    );
+    this.subscription = shoppingCartService.changeTotalQuantity$
+      .subscribe(totalQuantity => this.totalQuantity = totalQuantity);
   }
 
   ngOnDestroy() {
