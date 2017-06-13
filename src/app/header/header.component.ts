@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
+import { Subscription }   from 'rxjs/Subscription';
+import { ShoppingCartService } from '../shopping-cart.service';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements OnDestroy {
+  totalQuantity: number;
+  subscription: Subscription;
 
-  constructor() { }
+  constructor(private shoppingCartService: ShoppingCartService) { 
+    this.subscription = shoppingCartService.changeTotalQuantity$.subscribe(
+      totalQuantity => {
+        this.totalQuantity = totalQuantity;
+      }
+    );
+  }
 
-  ngOnInit() {
+  ngOnDestroy() {
+    // prevent memory leak when component destroyed
+    this.subscription.unsubscribe();
   }
 
 }

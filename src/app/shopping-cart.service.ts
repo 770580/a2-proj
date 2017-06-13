@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product.model';
 import { CartProduct } from './cart-product.model';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ShoppingCartService {
   cartProducts: CartProduct[] = [];
   totalPrice: Number;
+  private totalQuantity: number = 0;
+  private totalQuantitySource = new Subject<number>();
+  changeTotalQuantity$ = this.totalQuantitySource.asObservable();
 
   constructor() { }
 
@@ -20,6 +24,8 @@ export class ShoppingCartService {
     }
 
     this.setTotalPrice();
+    this.totalQuantity += 1;
+    this.totalQuantitySource.next(this.totalQuantity);
   }
 
   getProducts() {
