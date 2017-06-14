@@ -11,7 +11,14 @@ export class ShoppingCartService {
   private totalQuantitySource = new Subject<number>();
   changeTotalQuantity$ = this.totalQuantitySource.asObservable();
 
-  constructor() { }
+  constructor() {
+    const restoredData = this.restoreDataFromLocalStorage();
+    if (restoredData) {
+      restoredData.forEach(data => (
+        this.addNewCartProduct(data.product, data.quantity)
+      ));
+    }
+  }
 
   private setTotalPrice() {
     this.totalPrice = this.cartProducts.reduce((total, cartProduct) => {
@@ -40,15 +47,26 @@ export class ShoppingCartService {
     localStorage.setItem('cart', JSON.stringify(data));
   }
 
+  private restoreDataFromLocalStorage() {
+    return JSON.parse(localStorage.getItem('cart'));
+  }
+
+  private addNewCartProduct(product: Product, quantity: number = 0) {
+    const newProduct: CartProduct = new CartProduct(product);
+    this.cartProducts.push(newProduct);
+    if (quantity) {
+      newProduct.quantity = quantity;
+    }
+    newProduct.quantity$.subscribe(() => this.processCartChanges());
+  }
+
   addProduct(product: Product) {
-    let existingProduct: CartProduct = this.cartProducts.find( item => item.product.id === product.id);
+    const existingProduct: CartProduct = this.cartProducts.find( item => item.product.id === product.id);
 
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
-      let newProduct: CartProduct = new CartProduct(product);
-      this.cartProducts.push(newProduct);
-      newProduct.quantity$.subscribe(() => this.processCartChanges());
+      this.addNewCartProduct(product);
     }
   }
 
@@ -58,5 +76,9 @@ export class ShoppingCartService {
 
   getTotalPrice() {
     return this.totalPrice;
+  }
+
+  getTotalQuantity() {
+    return this.totalQuantity;
   }
 }
