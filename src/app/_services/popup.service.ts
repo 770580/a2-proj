@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Popup } from './popup.model';
+import { Popup } from '../_models/popup.model';
 
 @Injectable()
 export class PopupService {

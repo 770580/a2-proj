@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
-import { ShoppingCartService } from '../shopping-cart.service';
+import { ShoppingCartService } from '../_services/shopping-cart.service';
 
 @Component({
   selector: 'app-header',

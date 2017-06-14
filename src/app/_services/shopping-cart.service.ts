@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Product } from './product.model';
-import { CartProduct } from './cart-product.model';
+import { Product } from '../_models/product.model';
+import { CartProduct } from '../_models/cart-product.model';
 import { Subject } from 'rxjs/Subject';
 
 @Injectable()

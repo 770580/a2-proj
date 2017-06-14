@@ -1,7 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { CartProduct } from '../cart-product.model';
-import { ShoppingCartService } from '../shopping-cart.service';
-import { PopupService } from '../popup.service';
+import { CartProduct } from '../_models/cart-product.model';
+import { ShoppingCartService } from '../_services/shopping-cart.service';
+import { PopupService } from '../_services/popup.service';
 
 @Component({
   selector: 'app-shopping-cart',
