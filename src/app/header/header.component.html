@@ -7,7 +7,11 @@
       <a routerLink='/products'>products</a>
     </li>
     <li routerLinkActive='active'>
-      <a routerLink='/cart'>cart</a>
+      <a routerLink='/cart'>cart
+        <span *ngIf='totalQuantity'>
+          ({{totalQuantity}})
+        </span>
+      </a>
     </li>
     <li routerLinkActive='active'>
       <a routerLink='/about'>about</a>

@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Product } from './product.model';
 import { CartProduct } from './cart-product.model';
+import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class ShoppingCartService {
   cartProducts: CartProduct[] = [];
   totalPrice: Number;
+  private totalQuantity: number = 0;
+  private totalQuantitySource = new Subject<number>();
+  changeTotalQuantity$ = this.totalQuantitySource.asObservable();
 
   constructor() { }
 
@@ -17,9 +21,8 @@ export class ShoppingCartService {
     } else {
       let newProduct: CartProduct = new CartProduct(product);
       this.cartProducts.push(newProduct);
+      newProduct.quantity$.subscribe(() => this.processCartChanges());
     }
-
-    this.setTotalPrice();
   }
 
   getProducts() {
@@ -30,6 +33,18 @@ export class ShoppingCartService {
     this.totalPrice = this.cartProducts.reduce((total, cartProduct) => {
       return (total + cartProduct.product.price * cartProduct.quanitity)
     }, 0);
+  }
+
+  private setTotalQuantity() {
+    this.totalQuantity = this.cartProducts.reduce((total, cartProduct) => {
+      return (total + cartProduct.quanitity)
+    }, 0);
+  }
+
+  private processCartChanges() {
+    this.setTotalPrice();
+    this.setTotalQuantity();
+    this.totalQuantitySource.next(this.totalQuantity);
   }
 
   getTotalPrice() {

@@ -26,4 +26,8 @@ export class ShoppingCartComponent implements OnInit {
       text: 'This functionality is not implemented...'
     });
   }
+
+  onQuantityChanged() {
+    this.totalPrice = this.cartService.getTotalPrice();
+  }
 }

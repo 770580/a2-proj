@@ -1,11 +1,22 @@
+import {BehaviorSubject} from 'rxjs/BehaviorSubject';
 import { Product } from './product.model';
 
 export class CartProduct {
   product: Product;
-  quanitity: number;
+  set quanitity(value: number) {
+    value = Number(value);
+    this.quantitySource.next(value);
+  }
 
-  constructor(product: Product, quanitity: number = 1) {
+  get quanitity():number {
+    return this.quantitySource.getValue();
+  }
+
+  private quantitySource = new BehaviorSubject<number>(0);
+  quantity$ = this.quantitySource.asObservable();
+
+  constructor(product: Product, quantity: number = 1) {
     this.product = product;
-    this.quanitity = quanitity;
+    this.quanitity = quantity;
   }
 }
