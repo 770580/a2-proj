@@ -15,7 +15,8 @@ export class CartProduct {
   private quantitySource = new BehaviorSubject<number>(0);
   quantity$ = this.quantitySource.asObservable();
 
-  constructor(product: Product) {
+  constructor(product: Product, quantity: number = 1) {
     this.product = product;
+    this.quanitity = quantity;
   }
 }

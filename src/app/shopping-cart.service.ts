@@ -21,11 +21,8 @@ export class ShoppingCartService {
     } else {
       let newProduct: CartProduct = new CartProduct(product);
       this.cartProducts.push(newProduct);
+      newProduct.quantity$.subscribe(() => this.processCartChanges());
     }
-
-    this.setTotalPrice();
-    this.totalQuantity += 1;
-    this.totalQuantitySource.next(this.totalQuantity);
   }
 
   getProducts() {
@@ -36,6 +33,18 @@ export class ShoppingCartService {
     this.totalPrice = this.cartProducts.reduce((total, cartProduct) => {
       return (total + cartProduct.product.price * cartProduct.quanitity)
     }, 0);
+  }
+
+  private setTotalQuantity() {
+    this.totalQuantity = this.cartProducts.reduce((total, cartProduct) => {
+      return (total + cartProduct.quanitity)
+    }, 0);
+  }
+
+  private processCartChanges() {
+    this.setTotalPrice();
+    this.setTotalQuantity();
+    this.totalQuantitySource.next(this.totalQuantity);
   }
 
   getTotalPrice() {
