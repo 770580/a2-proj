@@ -13,6 +13,33 @@ export class ShoppingCartService {
 
   constructor() { }
 
+  private setTotalPrice() {
+    this.totalPrice = this.cartProducts.reduce((total, cartProduct) => {
+      return (total + cartProduct.product.price * cartProduct.quantity);
+    }, 0);
+  }
+
+  private setTotalQuantity() {
+    this.totalQuantity = this.cartProducts.reduce((total, cartProduct) => {
+      return (total + cartProduct.quantity);
+    }, 0);
+  }
+
+  private processCartChanges() {
+    this.setTotalPrice();
+    this.setTotalQuantity();
+    this.totalQuantitySource.next(this.totalQuantity);
+    this.saveDataToLocalStorage();
+  }
+
+  private saveDataToLocalStorage() {
+    const data: Array<any> = this.cartProducts.map(cartProduct => {
+      const { product, quantity } = cartProduct;
+      return { product, quantity };
+    });
+    localStorage.setItem('cart', JSON.stringify(data));
+  }
+
   addProduct(product: Product) {
     let existingProduct: CartProduct = this.cartProducts.find( item => item.product.id === product.id);
 
@@ -27,24 +54,6 @@ export class ShoppingCartService {
 
   getProducts() {
     return this.cartProducts;
-  }
-
-  private setTotalPrice() {
-    this.totalPrice = this.cartProducts.reduce((total, cartProduct) => {
-      return (total + cartProduct.product.price * cartProduct.quantity)
-    }, 0);
-  }
-
-  private setTotalQuantity() {
-    this.totalQuantity = this.cartProducts.reduce((total, cartProduct) => {
-      return (total + cartProduct.quantity)
-    }, 0);
-  }
-
-  private processCartChanges() {
-    this.setTotalPrice();
-    this.setTotalQuantity();
-    this.totalQuantitySource.next(this.totalQuantity);
   }
 
   getTotalPrice() {

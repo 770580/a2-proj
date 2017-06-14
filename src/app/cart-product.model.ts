@@ -5,7 +5,7 @@ export class CartProduct {
   product: Product;
   set quantity(value: number) {
     value = Number(value);
-    if (Number.isInteger(value)) {
+    if (Number.isInteger(value) && value > 0) {
       if (value >= this.product.quantity) {
         value = this.product.quantity;
       }
