@@ -12,7 +12,7 @@
       <td>{{cartProduct.product.name}}</td>
       <td>{{cartProduct.product.price | currency:'USD':true:'1.2-2'}}</td>
       <td>
-        <input type='text' [(ngModel)]='cartProduct.quanitity' />
+        <input type='text' [(ngModel)]='cartProduct.quanitity' (ngModelChange)="onQuantityChanged()" />
       </td>
       <td>{{cartProduct.product.price * cartProduct.quanitity | currency:'USD':true:'1.2-2'}}</td>
     </tr>
