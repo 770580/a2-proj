@@ -10,11 +10,9 @@ import { PopupService } from '../_services/popup.service';
 })
 export class ShoppingCartComponent {
   cartProducts: CartProduct[];
-  totalPrice: Number;
 
   constructor(private cartService: ShoppingCartService, private popupService: PopupService, private elementRef: ElementRef) { 
     this.cartProducts = this.cartService.getProducts();
-    this.totalPrice = this.cartService.getTotalPrice();
   }
 
   makeOrder() {
@@ -25,7 +23,10 @@ export class ShoppingCartComponent {
   }
 
   onQuantityChanged(cartProduct: CartProduct) {
-    this.totalPrice = this.cartService.getTotalPrice();
     this.elementRef.nativeElement.querySelector('#quantity' + cartProduct.product.id).value = cartProduct.quantity;
+  }
+
+  removeCartProduct(cartProduct: CartProduct) {
+    this.cartService.removeCartProduct(cartProduct);
   }
 }

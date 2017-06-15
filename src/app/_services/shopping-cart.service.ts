@@ -78,4 +78,9 @@ export class ShoppingCartService {
   getTotalQuantity() {
     return this.totalQuantity;
   }
+
+  removeCartProduct(cartProduct: CartProduct) {
+    const removeProductIndex: number = this.cartProducts.findIndex(cP => cP === cartProduct);
+    this.cartProducts.splice(removeProductIndex, 1);
+  }
 }
