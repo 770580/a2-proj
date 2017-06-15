@@ -1,6 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
-import { Subscription }   from 'rxjs/Subscription';
-import { ShoppingCartService } from '../shopping-cart.service';
+import { Subscription } from 'rxjs/Subscription';
+import { ShoppingCartService } from '../_services/shopping-cart.service';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +11,8 @@ export class HeaderComponent implements OnDestroy {
   totalQuantity: number;
   subscription: Subscription;
 
-  constructor(private shoppingCartService: ShoppingCartService) { 
+  constructor(private shoppingCartService: ShoppingCartService) {
+    this.totalQuantity = shoppingCartService.getTotalQuantity();
     this.subscription = shoppingCartService.changeTotalQuantity$
       .subscribe(totalQuantity => this.totalQuantity = totalQuantity);
   }

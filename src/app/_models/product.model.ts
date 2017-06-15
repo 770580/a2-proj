@@ -4,7 +4,7 @@ export class Product {
   description: string;
   image: string;
   price: number;
-  quanity: number;
+  quantity: number;
 
   constructor(product: any) {
     if(product !== Object(product)) {
@@ -15,6 +15,6 @@ export class Product {
     this.description = product.description;
     this.image = product.image;
     this.price = product.price;
-    this.quanity = product.quanity;
+    this.quantity = product.quantity;
   }
 }

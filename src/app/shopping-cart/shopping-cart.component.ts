@@ -1,23 +1,18 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { CartProduct } from '../cart-product.model';
-import { ShoppingCartService } from '../shopping-cart.service';
-import { PopupService } from '../popup.service';
+import { Component, ViewChild, ElementRef } from '@angular/core';
+import { CartProduct } from '../_models/cart-product.model';
+import { ShoppingCartService } from '../_services/shopping-cart.service';
+import { PopupService } from '../_services/popup.service';
 
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
   styleUrls: ['./shopping-cart.component.css']
 })
-export class ShoppingCartComponent implements OnInit {
+export class ShoppingCartComponent {
   cartProducts: CartProduct[];
-  totalPrice: Number;
 
-  constructor(private cartService: ShoppingCartService, private popupService: PopupService) { 
+  constructor(private cartService: ShoppingCartService, private popupService: PopupService, private elementRef: ElementRef) { 
     this.cartProducts = this.cartService.getProducts();
-    this.totalPrice = this.cartService.getTotalPrice();
-  }
-
-  ngOnInit() {
   }
 
   makeOrder() {
@@ -27,7 +22,11 @@ export class ShoppingCartComponent implements OnInit {
     });
   }
 
-  onQuantityChanged() {
-    this.totalPrice = this.cartService.getTotalPrice();
+  onQuantityChanged(cartProduct: CartProduct) {
+    this.elementRef.nativeElement.querySelector('#quantity' + cartProduct.product.id).value = cartProduct.quantity;
+  }
+
+  removeCartProduct(cartProduct: CartProduct) {
+    this.cartService.removeCartProduct(cartProduct);
   }
 }

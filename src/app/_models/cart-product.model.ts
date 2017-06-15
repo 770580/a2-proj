@@ -1,14 +1,25 @@
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
 import { Product } from './product.model';
 
 export class CartProduct {
   product: Product;
-  set quanitity(value: number) {
+  quantitySubscription: Subscription;
+
+  set quantity(value: number) {
     value = Number(value);
+    if (Number.isInteger(value) && value > 0) {
+      if (value >= this.product.quantity) {
+        value = this.product.quantity;
+      }
+    } else {
+      value = 0;
+    }
+
     this.quantitySource.next(value);
   }
 
-  get quanitity():number {
+  get quantity():number {
     return this.quantitySource.getValue();
   }
 
@@ -17,6 +28,6 @@ export class CartProduct {
 
   constructor(product: Product, quantity: number = 1) {
     this.product = product;
-    this.quanitity = quantity;
+    this.quantity = quantity;
   }
 }

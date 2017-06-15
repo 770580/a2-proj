@@ -13,10 +13,10 @@ import { HomeComponent } from './home/home.component';
 import { ProductsComponent } from './products/products.component';
 import { AboutComponent } from './about/about.component';
 import { ProductComponent } from './product/product.component';
-import { ShoppingCartService } from './shopping-cart.service';
+import { ShoppingCartService } from './_services/shopping-cart.service';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { PopupComponent } from './popup/popup.component';
-import { PopupService } from './popup.service';
+import { PopupService } from './_services/popup.service';
 
 @NgModule({
   declarations: [

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Popup } from '../popup.model';
-import { PopupService } from '../popup.service';
+import { Popup } from '../_models/popup.model';
+import { PopupService } from '../_services/popup.service';
 
 @Component({
   selector: 'app-popup',

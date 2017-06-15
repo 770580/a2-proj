@@ -12,12 +12,15 @@
       <td>{{cartProduct.product.name}}</td>
       <td>{{cartProduct.product.price | currency:'USD':true:'1.2-2'}}</td>
       <td>
-        <input type='text' [(ngModel)]='cartProduct.quanitity' (ngModelChange)="onQuantityChanged()" />
+        <input id='quantity{{cartProduct.product.id}}' type='text' [(ngModel)]='cartProduct.quantity' (ngModelChange)="onQuantityChanged(cartProduct)" />
       </td>
-      <td>{{cartProduct.product.price * cartProduct.quanitity | currency:'USD':true:'1.2-2'}}</td>
+      <td>{{cartProduct.product.price * cartProduct.quantity | currency:'USD':true:'1.2-2'}}</td>
+      <td>
+        <span class='glyphicon glyphicon-remove' (click)='removeCartProduct(cartProduct)'></span>
+      </td>
     </tr>
     <tr>
-      <td colspan='4'>Total: {{totalPrice | currency:'USD':true:'1.2-2'}}</td>
+      <td colspan='5'>Total: {{cartService.getTotalPrice() | currency:'USD':true:'1.2-2'}}</td>
     </tr>
   </tbody>
 </table>
