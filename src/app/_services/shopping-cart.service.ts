@@ -12,12 +12,7 @@ export class ShoppingCartService {
   changeTotalQuantity$ = this.totalQuantitySource.asObservable();
 
   constructor() {
-    const restoredData = this.restoreDataFromLocalStorage();
-    if (restoredData) {
-      restoredData.forEach(data => (
-        this.addNewCartProduct(data.product, data.quantity)
-      ));
-    }
+    this.restoreDataFromLocalStorage();
   }
 
   private setTotalPrice() {
@@ -48,15 +43,17 @@ export class ShoppingCartService {
   }
 
   private restoreDataFromLocalStorage() {
-    return JSON.parse(localStorage.getItem('cart'));
+    const restoredData = JSON.parse(localStorage.getItem('cart'));
+    if (restoredData) {
+      restoredData.forEach(data => (
+        this.addNewCartProduct(data.product, data.quantity)
+      ));
+    }
   }
 
-  private addNewCartProduct(product: Product, quantity: number = 0) {
-    const newProduct: CartProduct = new CartProduct(product);
+  private addNewCartProduct(product: Product, quantity: number) {
+    const newProduct: CartProduct = new CartProduct(product, quantity);
     this.cartProducts.push(newProduct);
-    if (quantity) {
-      newProduct.quantity = quantity;
-    }
     newProduct.quantity$.subscribe(() => this.processCartChanges());
   }
 
@@ -66,7 +63,7 @@ export class ShoppingCartService {
     if (existingProduct) {
       existingProduct.quantity += 1;
     } else {
-      this.addNewCartProduct(product);
+      this.addNewCartProduct(product, 1);
     }
   }
 
