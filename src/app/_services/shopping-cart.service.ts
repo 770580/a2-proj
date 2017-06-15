@@ -10,6 +10,7 @@ export class ShoppingCartService {
   private totalQuantity: number = 0;
   private totalQuantitySource = new Subject<number>();
   changeTotalQuantity$ = this.totalQuantitySource.asObservable();
+  quantitySubscription;
 
   constructor() {
     this.restoreDataFromLocalStorage();
@@ -54,7 +55,7 @@ export class ShoppingCartService {
   private addNewCartProduct(product: Product, quantity: number) {
     const newProduct: CartProduct = new CartProduct(product, quantity);
     this.cartProducts.push(newProduct);
-    newProduct.quantity$.subscribe(() => this.processCartChanges());
+    newProduct.quantitySubscription = newProduct.quantity$.subscribe(() => this.processCartChanges());
   }
 
   addProduct(product: Product) {
@@ -80,7 +81,9 @@ export class ShoppingCartService {
   }
 
   removeCartProduct(cartProduct: CartProduct) {
+    cartProduct.quantitySubscription.unsubscribe();
     const removeProductIndex: number = this.cartProducts.findIndex(cP => cP === cartProduct);
     this.cartProducts.splice(removeProductIndex, 1);
+    this.processCartChanges();
   }
 }

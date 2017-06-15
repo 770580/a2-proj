@@ -1,8 +1,11 @@
 import {BehaviorSubject} from 'rxjs/BehaviorSubject';
+import { Subscription } from 'rxjs/Subscription';
 import { Product } from './product.model';
 
 export class CartProduct {
   product: Product;
+  quantitySubscription: Subscription;
+
   set quantity(value: number) {
     value = Number(value);
     if (Number.isInteger(value) && value > 0) {
