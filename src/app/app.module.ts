@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
 import { AlertModule } from 'ngx-bootstrap';
+import { BsDropdownModule } from 'ngx-bootstrap';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 
@@ -41,6 +42,7 @@ export function HttpLoaderFactory(http: Http) {
     HttpModule,
     RouterModule.forRoot(APP_ROUTES),
     AlertModule.forRoot(),
+    BsDropdownModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

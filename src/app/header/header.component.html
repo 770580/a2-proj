@@ -17,4 +17,16 @@
       <a routerLink='/about'>{{'HEADER.MENU.ABOUT' | translate}}</a>
     </li>
   </ul>
+  <div class='navbar-right header-lang'>
+    <div class='btn-group' dropdown>
+      <button dropdownToggle type='button' class='btn dropdown-toggle'>
+        {{translate.currentLang}} <span class='caret'></span>
+      </button>
+      <ul *dropdownMenu class='dropdown-menu' role='menu'>
+        <li *ngFor='let lang of translate.getLangs()' role='menuitem'>
+          <a class='dropdown-item' (click)='translate.use(lang)'>{{lang}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
