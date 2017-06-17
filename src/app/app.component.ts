@@ -1,5 +1,5 @@
 import { Component, ViewChild, OnInit } from '@angular/core';
-import {TranslateService} from '@ngx-translate/core';
+import { TranslateService } from '@ngx-translate/core';
 import { PopupService } from './_services/popup.service';
 
 @Component({
@@ -9,15 +9,19 @@ import { PopupService } from './_services/popup.service';
 })
 export class AppComponent implements OnInit {
 
-  constructor(private popupService: PopupService, translate: TranslateService) {
+  constructor(private popupService: PopupService, private translate: TranslateService) {
     translate.addLangs(['en', 'ru']);
     const browserLang = translate.getBrowserLang();
     translate.use(browserLang.match(/en|ru/) ? browserLang : 'en');
   }
 
   ngOnInit() {
-    this.popupService.doShow({
-      text: 'App works!'
-    });
+    this.translate
+      .get('POPUPS.APP')
+      .subscribe((text: string) => {
+        this.popupService.doShow({
+          text
+        });
+      });
   }
 }

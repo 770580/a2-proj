@@ -1,10 +1,10 @@
 <table class='table'>
   <thead>
     <tr>
-      <th>Name</th>
-      <th>Price</th>
-      <th>Quantity</th>
-      <th>Subtotal</th>
+      <th>{{'CART.TABLETITLE.NAME' | translate}}</th>
+      <th>{{'CART.TABLETITLE.PRICE' | translate}}</th>
+      <th>{{'CART.TABLETITLE.QUANTITY' | translate}}</th>
+      <th>{{'CART.TABLETITLE.SUBTOTAL' | translate}}</th>
     </tr>
   </thead>
   <tbody>
@@ -20,8 +20,8 @@
       </td>
     </tr>
     <tr>
-      <td colspan='5'>Total: {{cartService.getTotalPrice() | currency:'USD':true:'1.2-2'}}</td>
+      <td colspan='5'>{{'CART.TOTAL' | translate}} {{cartService.getTotalPrice() | currency:'USD':true:'1.2-2'}}</td>
     </tr>
   </tbody>
 </table>
-<a class='btn btn-primary' (click)='makeOrder()'>Checkout</a>
+<a class='btn btn-primary' (click)='makeOrder()'>{{'CART.CHECKOUT' | translate}}</a>

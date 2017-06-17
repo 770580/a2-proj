@@ -1,4 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
+import { TranslateService } from '@ngx-translate/core';
 import { CartProduct } from '../_models/cart-product.model';
 import { ShoppingCartService } from '../_services/shopping-cart.service';
 import { PopupService } from '../_services/popup.service';
@@ -11,15 +12,23 @@ import { PopupService } from '../_services/popup.service';
 export class ShoppingCartComponent {
   cartProducts: CartProduct[];
 
-  constructor(private cartService: ShoppingCartService, private popupService: PopupService, private elementRef: ElementRef) { 
+  constructor(private cartService: ShoppingCartService,
+    private popupService: PopupService,
+    private elementRef: ElementRef,
+    private translate: TranslateService
+  ) {
     this.cartProducts = this.cartService.getProducts();
   }
 
   makeOrder() {
-    this.popupService.doShow({
-      type: 'warning',
-      text: 'This functionality is not implemented...'
-    });
+    this.translate
+      .get('POPUPS.ORDER')
+      .subscribe((text: string) => {
+        this.popupService.doShow({
+          type: 'warning',
+          text
+        });
+      });
   }
 
   onQuantityChanged(cartProduct: CartProduct) {

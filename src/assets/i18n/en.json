@@ -1,3 +1,35 @@
 {
-  
+  "HEADER": {
+    "MENU": {
+      "HOME": "home",
+      "PRODUCTS": "products",
+      "CART": "cart",
+      "ABOUT": "about"
+    }
+  },
+  "HOME": {
+    "TITLE": "Hello world!"
+  },
+  "CART": {
+    "TABLETITLE": {
+      "NAME": "Name",
+      "PRICE": "Price",
+      "QUANTITY": "Quantity",
+      "SUBTOTAL": "Subtotal"
+    },
+    "TOTAL": "Total:",
+    "CHECKOUT": "Checkout"
+  },
+  "ABOUT": {
+    "TITLE": "The product will change the world"
+  },
+  "PRODUCT": {
+    "ADDTOCART": "Add to cart",
+    "INSTOCK": "In stock:",
+    "OUTOFSTOCK": "Out of stock"
+  },
+  "POPUPS": {
+    "APP": "App works!",
+    "ORDER": "This functionality is not implemented..."
+  }
 }

@@ -11,15 +11,15 @@
       {{product.price | currency:'USD':true:'1.2-2'}}
     </p>
     <p *ngIf='product.quantity !== 0; else outOfStock'>
-      В наличии {{product.quantity}} шт.
+      {{'PRODUCT.INSTOCK' | translate}} {{product.quantity}} шт.
     </p>
     <ng-template #outOfStock>
       <p>
-        Нет в наличии
+        {{'PRODUCT.OUTOFSTOCK' | translate}}
       </p>
     </ng-template>
     <a class='btn btn-primary' (click)='addToCart()'>
-      Add to cart
+      {{'PRODUCT.ADDTOCART' | translate}}
     </a>
   </div>
 </div>
