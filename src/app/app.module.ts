@@ -7,6 +7,7 @@ import { AlertModule } from 'ngx-bootstrap';
 import { BsDropdownModule } from 'ngx-bootstrap';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { CookieModule } from 'ngx-cookie';
 
 import { APP_ROUTES } from './app.routes';
 
@@ -43,6 +44,7 @@ export function HttpLoaderFactory(http: Http) {
     RouterModule.forRoot(APP_ROUTES),
     AlertModule.forRoot(),
     BsDropdownModule.forRoot(),
+    CookieModule.forRoot(),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
