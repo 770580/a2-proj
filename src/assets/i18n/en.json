@@ -26,7 +26,8 @@
   "PRODUCT": {
     "ADDTOCART": "Add to cart",
     "INSTOCK": "In stock:",
-    "OUTOFSTOCK": "Out of stock"
+    "OUTOFSTOCK": "Out of stock",
+    "PCS": "pcs"
   },
   "POPUPS": {
     "APP": "App works!",

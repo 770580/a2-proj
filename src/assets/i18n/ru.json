@@ -26,7 +26,8 @@
   "PRODUCT": {
     "ADDTOCART": "В корзину",
     "INSTOCK": "В наличии:",
-    "OUTOFSTOCK": "Нет в наличии"
+    "OUTOFSTOCK": "Нет в наличии",
+    "PCS": "шт"
   },
   "POPUPS": {
     "APP": "Работает!",

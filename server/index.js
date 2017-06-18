@@ -7,7 +7,8 @@ app.get('/api/test', function (req, res) {
 })
 
 app.get('/api/products', function (req, res) {
-  const fileName = './server/mock.products.json';
+  const lang = req.query.lang || 'en';
+  const fileName = `./server/mock.products.${lang}.json`;
   const data =  fs.readFileSync(fileName, 'utf8');
   setTimeout(() => (res.send(data)), 1500);
 })
