@@ -1,7 +1,10 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs/Subject';
+import { Subscription } from 'rxjs/Subscription';
+import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
 import { Product } from '../_models/product.model';
 import { CartProduct } from '../_models/cart-product.model';
-import { Subject } from 'rxjs/Subject';
+import { ProductsService } from '../_services/products.service';
 
 @Injectable()
 export class ShoppingCartService {
@@ -11,9 +14,13 @@ export class ShoppingCartService {
   private totalQuantitySource = new Subject<number>();
   changeTotalQuantity$ = this.totalQuantitySource.asObservable();
   quantitySubscription;
+  private changeLangSubscription: Subscription;
 
-  constructor() {
+  constructor(private translate: TranslateService, private productsService: ProductsService) {
     this.restoreDataFromLocalStorage();
+    this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
+      this.renewProducts(event.lang);
+    });
   }
 
   private setTotalPrice() {
@@ -56,6 +63,20 @@ export class ShoppingCartService {
     const newProduct: CartProduct = new CartProduct(product, quantity);
     this.cartProducts.push(newProduct);
     newProduct.quantitySubscription = newProduct.quantity$.subscribe(() => this.processCartChanges());
+  }
+
+  private renewProducts(lang: string) {
+    const idList: Array<number> = this.cartProducts.map(cP => cP.product.id);
+    this.productsService.getProducts(lang, idList).subscribe(
+      products => {
+        this.cartProducts.forEach(cP => {
+          const product = products.find(product => cP.product.id === product.id);
+          cP.product.name = product.name;
+          cP.product.description = product.description;
+        })
+        this.saveDataToLocalStorage();
+      }
+    );
   }
 
   addProduct(product: Product) {

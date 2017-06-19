@@ -21,6 +21,7 @@ import { ShoppingCartService } from './_services/shopping-cart.service';
 import { ShoppingCartComponent } from './shopping-cart/shopping-cart.component';
 import { PopupComponent } from './popup/popup.component';
 import { PopupService } from './_services/popup.service';
+import { ProductsService } from './_services/products.service';
 
 export function HttpLoaderFactory(http: Http) {
     return new TranslateHttpLoader(http);
@@ -55,7 +56,8 @@ export function HttpLoaderFactory(http: Http) {
   ],
   providers: [
     ShoppingCartService,
-    PopupService
+    PopupService,
+    ProductsService
   ],
   bootstrap: [AppComponent],
 })

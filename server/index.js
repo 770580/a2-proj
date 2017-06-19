@@ -1,5 +1,4 @@
 const express = require('express');
-const fs = require('fs');
 const app = express();
 
 app.get('/api/test', function (req, res) {
@@ -8,8 +7,10 @@ app.get('/api/test', function (req, res) {
 
 app.get('/api/products', function (req, res) {
   const lang = req.query.lang || 'en';
-  const fileName = `./server/mock.products.${lang}.json`;
-  const data =  fs.readFileSync(fileName, 'utf8');
+  const data = require('./mock.products.' + lang + '.json');
+  if (req.query.idList) {
+    data.products = data.products.filter(item => (req.query.idList.indexOf(item.id) > -1));
+  }
   setTimeout(() => (res.send(data)), 1500);
 })
 
