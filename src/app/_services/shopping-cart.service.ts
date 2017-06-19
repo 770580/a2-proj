@@ -10,10 +10,9 @@ import { ProductsService } from '../_services/products.service';
 export class ShoppingCartService {
   cartProducts: CartProduct[] = [];
   totalPrice: Number;
-  private totalQuantity: number = 0;
+  private totalQuantity = 0;
   private totalQuantitySource = new Subject<number>();
   changeTotalQuantity$ = this.totalQuantitySource.asObservable();
-  quantitySubscription;
   private changeLangSubscription: Subscription;
 
   constructor(private translate: TranslateService, private productsService: ProductsService) {
@@ -71,9 +70,10 @@ export class ShoppingCartService {
       products => {
         this.cartProducts.forEach(cP => {
           const product = products.find(product => cP.product.id === product.id);
+          if (!product) { return; }
           cP.product.name = product.name;
           cP.product.description = product.description;
-        })
+        });
         this.saveDataToLocalStorage();
       }
     );
