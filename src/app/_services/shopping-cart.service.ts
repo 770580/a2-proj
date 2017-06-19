@@ -17,9 +17,11 @@ export class ShoppingCartService {
 
   constructor(private translate: TranslateService, private productsService: ProductsService) {
     this.restoreDataFromLocalStorage();
-    this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
-      this.renewProducts(event.lang);
-    });
+    setTimeout(() => (
+      this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.renewProducts(event.lang);
+      })
+    ), 0);
   }
 
   private setTotalPrice() {

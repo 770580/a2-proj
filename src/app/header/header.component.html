@@ -24,7 +24,7 @@
       </button>
       <ul *dropdownMenu class='dropdown-menu' role='menu'>
         <li *ngFor='let lang of translate.getLangs()' role='menuitem'>
-          <a class='dropdown-item' (click)='translate.use(lang)'>{{lang}}</a>
+          <a class='dropdown-item' (click)='setLanguage(lang)'>{{lang}}</a>
         </li>
       </ul>
     </div>

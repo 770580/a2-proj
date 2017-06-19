@@ -18,9 +18,11 @@ export class ProductsComponent implements OnDestroy {
   private changeLangSubscription: Subscription;
 
   constructor(private productsService: ProductsService, private translate: TranslateService) {
-    this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
-       this.getProducts(event.lang);
-    });
+    setTimeout(() => (
+      this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
+        this.getProducts(event.lang);
+      })
+    ), 0);
     this.getProducts(this.translate.currentLang);
   }
 

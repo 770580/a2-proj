@@ -18,6 +18,12 @@ export class HeaderComponent implements OnDestroy {
       .subscribe(totalQuantity => this.totalQuantity = totalQuantity);
   }
 
+  setLanguage(lang: string) {
+    if (lang !== this.translate.currentLang) {
+      this.translate.use(lang);
+    }
+  }
+
   ngOnDestroy() {
     // prevent memory leak when component destroyed
     this.subscription.unsubscribe();
