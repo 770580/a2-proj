@@ -68,7 +68,7 @@ export class ShoppingCartService {
 
   private renewProducts(lang: string) {
     const idList: Array<number> = this.cartProducts.map(cP => cP.product.id);
-    this.productsService.getProducts(lang, idList).subscribe(
+    this.productsService.getProducts(lang, idList, true).subscribe(
       products => {
         this.cartProducts.forEach(cP => {
           const product = products.find(product => cP.product.id === product.id);

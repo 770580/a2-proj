@@ -11,12 +11,15 @@ import { Product } from '../_models/product.model';
 export class ProductsService {
   constructor(private http: Http) { }
 
-  getProducts(lang: string, idList: Array<number> = []): Observable<Product[]> {
+  getProducts(lang: string, idList?: Array<number>, localize?: boolean): Observable<Product[]> {
     let productsUrl = `api/products?lang=${lang}`;
-    if (idList.length) {
+    if (idList) {
       productsUrl += `&idList=${idList.join()}`;
     }
-    
+    if (localize) {
+      productsUrl += '&localize';
+    }
+
     return this.http.get(productsUrl)
       .map((res: Response) => res.json().products || [])
       .catch((error: Response) =>
