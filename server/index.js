@@ -7,9 +7,11 @@ app.get('/api/test', function (req, res) {
 
 app.get('/api/products', function (req, res) {
   const lang = req.query.lang || 'en';
-  const data = require('./mock.products.' + lang + '.json');
+  let data = require('./mock.products.' + lang + '.json');
   if (req.query.idList) {
-    data.products = data.products.filter(item => (req.query.idList.indexOf(item.id) > -1));
+    const filteredData = {};
+    filteredData.products = data.products.filter(item => (req.query.idList.indexOf(item.id) > -1));
+    data = filteredData;
   }
   setTimeout(() => (res.send(data)), 1500);
 })
