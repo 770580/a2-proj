@@ -38,4 +38,8 @@ export class ShoppingCartComponent {
   removeCartProduct(cartProduct: CartProduct) {
     this.cartService.removeCartProduct(cartProduct);
   }
+
+  isPending() {
+    return this.cartService.pending;
+  }
 }

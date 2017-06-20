@@ -9,7 +9,7 @@
   </thead>
   <tbody>
     <tr *ngFor='let cartProduct of cartProducts'>
-      <td>{{cartProduct.product.name}}</td>
+      <td [ngClass]="{'cart-pending': isPending() }">{{cartProduct.product.name}}</td>
       <td>{{cartProduct.product.price | currency:'USD':true:'1.2-2'}}</td>
       <td>
         <input id='quantity{{cartProduct.product.id}}' type='text' [(ngModel)]='cartProduct.quantity' (ngModelChange)="onQuantityChanged(cartProduct)" />
