@@ -13,7 +13,7 @@ app.get('/api/products', function (req, res) {
     filteredData.products = data.products.filter(item => (req.query.idList.indexOf(item.id) > -1));
     data = filteredData;
   }
-  if (req.query.localize === '') {
+  if (req.query.hasOwnProperty('localize')) {
     data.products = data.products.map(item => {
       const { id, name, description} = item;
       return { id, name, description};

@@ -13,7 +13,7 @@ export class ProductsService {
 
   getProducts(lang: string, idList?: Array<number>, localize?: boolean): Observable<Product[]> {
     let productsUrl = `api/products?lang=${lang}`;
-    if (idList) {
+    if (idList && idList.length) {
       productsUrl += `&idList=${idList.join()}`;
     }
     if (localize) {
