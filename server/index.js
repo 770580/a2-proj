@@ -7,20 +7,19 @@ app.get('/api/test', function (req, res) {
 
 app.get('/api/products', function (req, res) {
   const lang = req.query.lang || 'en';
-  let data = require('./mock.products.' + lang + '.json');
+  let products = require('./mock.products.' + lang + '.json').products;
+
   if (req.query.idList) {
-    const filteredData = {};
-    filteredData.products = data.products.filter(item => (req.query.idList.indexOf(item.id) > -1));
-    data = filteredData;
+    products = products.filter(item => req.query.idList.indexOf(item.id) > -1);
   }
   if (req.query.hasOwnProperty('localize')) {
-    data.products = data.products.map(item => {
+    products = products.map(item => {
       const { id, name, description} = item;
       return { id, name, description};
     })
   }
 
-  setTimeout(() => (res.send(data)), 750);
+  setTimeout(() => res.send({ products }), 750);
 });
 
 app.listen(3000, function () {
