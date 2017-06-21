@@ -37,8 +37,9 @@ export class ProductsComponent implements OnDestroy {
     this.pending = true;
     this.productsService.getProducts(lang)
       .subscribe(
-        products => {
-          this.products = products;
+        data => {
+          this.products = data.products;
+          this.total = data.total;
           this.pending = false;
         },
         error => {
