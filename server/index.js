@@ -6,6 +6,7 @@ app.get('/api/test', function (req, res) {
 });
 
 app.get('/api/products', function (req, res) {
+  console.log(req.query);
   const lang = req.query.lang || 'en';
   let products = require('./mock.products.' + lang + '.json').products;
 

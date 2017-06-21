@@ -35,7 +35,12 @@ export class ProductsComponent implements OnDestroy {
 
   getProducts(lang: string) {
     this.pending = true;
-    this.productsService.getProducts(lang)
+    const params = {
+      lang,
+      offset: (this.page - 1) * this.count,
+      count: this.count
+    };
+    this.productsService.getProducts(params)
       .subscribe(
         data => {
           this.products = data.products;
@@ -47,5 +52,10 @@ export class ProductsComponent implements OnDestroy {
           this.pending = false;
         }
       );
+  }
+
+  onPageChanged($event) {
+    this.page = $event.page;
+    this.getProducts(this.translate.currentLang);
   }
 }
