@@ -15,6 +15,9 @@ export class ProductsComponent implements OnDestroy {
   products: Product[];
   pending: Boolean = false;
   mode = 'Observable';
+  count = 10;
+  page = 1;
+  total: number;
   private changeLangSubscription: Subscription;
 
   constructor(private productsService: ProductsService, private translate: TranslateService) {

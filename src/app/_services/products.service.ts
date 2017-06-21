@@ -11,7 +11,7 @@ import { Product } from '../_models/product.model';
 export class ProductsService {
   constructor(private http: Http) { }
 
-  getProducts(lang: string, idList?: Array<number>, localize?: boolean): Observable<Product[]> {
+  getProducts(lang: string, idList?: Array<number>, localize?: boolean): Observable<any> {
     let productsUrl = `api/products?lang=${lang}`;
     if (idList && idList.length) {
       productsUrl += `&idList=${idList.join()}`;

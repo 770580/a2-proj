@@ -19,7 +19,9 @@ app.get('/api/products', function (req, res) {
     })
   }
 
-  setTimeout(() => res.send({ products }), 750);
+  const total = products.length;
+
+  setTimeout(() => res.send({ products, total }), 750);
 });
 
 app.listen(3000, function () {
