@@ -9,14 +9,20 @@ import { Product } from '../_models/product.model';
 
 @Injectable()
 export class ProductsService {
-  private productsUrl = 'api/products';
-
   constructor(private http: Http) { }
 
-  getProducts(): Observable<Product[]> {
-    return this.http.get(this.productsUrl)
+  getProducts(lang: string, idList?: Array<number>, localize?: boolean): Observable<Product[]> {
+    let productsUrl = `api/products?lang=${lang}`;
+    if (idList && idList.length) {
+      productsUrl += `&idList=${idList.join()}`;
+    }
+    if (localize) {
+      productsUrl += '&localize';
+    }
+
+    return this.http.get(productsUrl)
       .map((res: Response) => res.json().products || [])
-      .catch((error: Response) => 
+      .catch((error: Response) =>
         Observable.throw(error.json().error || 'Server error')
       );
   }

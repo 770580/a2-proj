@@ -1,17 +1,27 @@
 const express = require('express');
-const fs = require('fs');
 const app = express();
 
 app.get('/api/test', function (req, res) {
   res.send('API server works!');
-})
+});
 
 app.get('/api/products', function (req, res) {
-  const fileName = './server/mock.products.json';
-  const data =  fs.readFileSync(fileName, 'utf8');
-  setTimeout(() => (res.send(data)), 1500);
-})
+  const lang = req.query.lang || 'en';
+  let products = require('./mock.products.' + lang + '.json').products;
+
+  if (req.query.idList) {
+    products = products.filter(item => req.query.idList.indexOf(item.id) > -1);
+  }
+  if (req.query.hasOwnProperty('localize')) {
+    products = products.map(item => {
+      const { id, name, description} = item;
+      return { id, name, description};
+    })
+  }
+
+  setTimeout(() => res.send({ products }), 750);
+});
 
 app.listen(3000, function () {
   console.log('Server listening on port 3000!');
-})
+});

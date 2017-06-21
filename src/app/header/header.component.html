@@ -1,20 +1,32 @@
 <nav class='navbar navbar-default'>
   <ul class='nav navbar-nav'>
     <li routerLinkActive='active'>
-      <a routerLink='/home'>home</a>
+      <a routerLink='/home'>{{'HEADER.MENU.HOME' | translate}}</a>
     </li>
     <li routerLinkActive='active'>
-      <a routerLink='/products'>products</a>
+      <a routerLink='/products'>{{'HEADER.MENU.PRODUCTS' | translate}}</a>
     </li>
     <li routerLinkActive='active'>
-      <a routerLink='/cart'>cart
+      <a routerLink='/cart'>{{'HEADER.MENU.CART' | translate}}
         <span *ngIf='totalQuantity'>
           ({{totalQuantity}})
         </span>
       </a>
     </li>
     <li routerLinkActive='active'>
-      <a routerLink='/about'>about</a>
+      <a routerLink='/about'>{{'HEADER.MENU.ABOUT' | translate}}</a>
     </li>
   </ul>
+  <div class='navbar-right header-lang'>
+    <div class='btn-group' dropdown>
+      <button dropdownToggle type='button' class='btn dropdown-toggle'>
+        {{translate.currentLang}} <span class='caret'></span>
+      </button>
+      <ul *dropdownMenu class='dropdown-menu' role='menu'>
+        <li *ngFor='let lang of translate.getLangs()' role='menuitem'>
+          <a class='dropdown-item' (click)='setLanguage(lang)'>{{lang}}</a>
+        </li>
+      </ul>
+    </div>
+  </div>
 </nav>
