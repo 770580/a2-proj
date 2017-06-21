@@ -80,6 +80,9 @@ export class ShoppingCartService {
         });
         this.saveDataToLocalStorage();
         this.pending = false;
+      },
+      error => {
+        this.pending = false;
       }
     );
   }
