@@ -13,6 +13,7 @@ export class AppComponent implements OnInit {
   onLangChangeSubscription: Subscription;
 
   constructor(private popupService: PopupService, private translate: TranslateService, private cookieService: CookieService) {
+    localStorage.removeItem('page');
     translate.addLangs(['en', 'ru']);
     const langFromCookie: string = this.cookieService.get('lang');
     if (langFromCookie && langFromCookie.match(/en|ru/)) {

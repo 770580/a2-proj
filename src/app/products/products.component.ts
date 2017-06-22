@@ -1,6 +1,7 @@
 import { Component, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 import { ProductsService } from '../_services/products.service';
 
 import { Product } from '../_models/product.model';
@@ -16,11 +17,22 @@ export class ProductsComponent implements OnDestroy {
   pending: Boolean = false;
   mode = 'Observable';
   count = 10;
-  page = 1;
+  page: number;
   total: number;
   private changeLangSubscription: Subscription;
+  private isFirstInit = true;
 
-  constructor(private productsService: ProductsService, private translate: TranslateService) {
+  constructor(
+    private productsService: ProductsService,
+    private translate: TranslateService,
+    private router: Router,
+  ) {
+    this.page = Number(localStorage.getItem('page')) || 1;
+
+    if (!localStorage.getItem('page')) {
+      this.isFirstInit = false;
+    }  
+
     setTimeout(() => (
       this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.getProducts(event.lang);
@@ -54,8 +66,13 @@ export class ProductsComponent implements OnDestroy {
       );
   }
 
-  onPageChanged($event) {
-    this.page = $event.page;
-    this.getProducts(this.translate.currentLang);
+  onPageChanged(event) {
+    this.page = event.page;
+    this.router.navigate(['/products'], { queryParams: { page: this.page } });
+    localStorage.setItem('page', this.page.toString());
+    if (!this.isFirstInit) {
+      this.getProducts(this.translate.currentLang);
+    }
+    this.isFirstInit = false;
   }
 }
