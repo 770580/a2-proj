@@ -20,18 +20,17 @@ export class ProductsComponent implements OnDestroy {
   page: number;
   total: number;
   private changeLangSubscription: Subscription;
-  private isFirstInit = true;
 
   constructor(
     private productsService: ProductsService,
     private translate: TranslateService,
-    private router: Router,
+    private router: Router
   ) {
-    this.page = Number(localStorage.getItem('page')) || 1;
 
-    if (!localStorage.getItem('page')) {
-      this.isFirstInit = false;
-    }  
+    const pageFromUrl = Number(this.router.parseUrl(router.url).queryParams.page);
+    const pageFromLS = Number(localStorage.getItem('page'));
+    this.page = pageFromUrl || pageFromLS || 1;
+    this.router.navigate(['/products'], { queryParams: { page: this.page } });
 
     setTimeout(() => (
       this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
@@ -67,12 +66,14 @@ export class ProductsComponent implements OnDestroy {
   }
 
   onPageChanged(event) {
-    this.page = event.page;
+    if (this.page !== event.page) {
+      this.page = event.page;
+    } else {
+      return;
+    }
     this.router.navigate(['/products'], { queryParams: { page: this.page } });
     localStorage.setItem('page', this.page.toString());
-    if (!this.isFirstInit) {
-      this.getProducts(this.translate.currentLang);
-    }
-    this.isFirstInit = false;
+
+    this.getProducts(this.translate.currentLang);
   }
 }
