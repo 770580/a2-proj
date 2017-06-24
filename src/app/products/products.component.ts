@@ -1,7 +1,7 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs/Subscription';
 import { TranslateService, LangChangeEvent } from '@ngx-translate/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProductsService } from '../_services/products.service';
 
 import { Product } from '../_models/product.model';
@@ -11,7 +11,7 @@ import { Product } from '../_models/product.model';
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent implements OnDestroy {
+export class ProductsComponent implements OnInit, OnDestroy {
   errorMessage: string;
   products: Product[];
   pending: Boolean = false;
@@ -20,28 +20,39 @@ export class ProductsComponent implements OnDestroy {
   page: number;
   total: number;
   private changeLangSubscription: Subscription;
+  private pageSubscription: Subscription;
 
   constructor(
     private productsService: ProductsService,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
-
-    const pageFromUrl = Number(this.router.parseUrl(router.url).queryParams.page);
     const pageFromLS = Number(localStorage.getItem('page'));
-    this.page = pageFromUrl || pageFromLS || 1;
-    this.router.navigate(['/products'], { queryParams: { page: this.page } });
+    if (pageFromLS) {
+      this.router.navigate(['/products'], { queryParams: { page: pageFromLS } });
+    }
 
     setTimeout(() => (
       this.changeLangSubscription = translate.onLangChange.subscribe((event: LangChangeEvent) => {
         this.getProducts(event.lang);
       })
     ), 0);
-    this.getProducts(this.translate.currentLang);
+  }
+
+  ngOnInit() {
+    this.pageSubscription = this.route
+      .queryParams
+      .subscribe(params => {
+        this.page = Number(params['page']) || 1;
+        localStorage.setItem('page', this.page.toString());
+        this.getProducts(this.translate.currentLang);
+      });
   }
 
   ngOnDestroy() {
     this.changeLangSubscription.unsubscribe();
+    this.pageSubscription.unsubscribe();
   }
 
   getProducts(lang: string) {
@@ -66,14 +77,8 @@ export class ProductsComponent implements OnDestroy {
   }
 
   onPageChanged(event) {
-    if (this.page !== event.page) {
-      this.page = event.page;
-    } else {
-      return;
+    if (event.page !== this.page) {
+      this.router.navigate(['/products'], { queryParams: { page: event.page } });
     }
-    this.router.navigate(['/products'], { queryParams: { page: this.page } });
-    localStorage.setItem('page', this.page.toString());
-
-    this.getProducts(this.translate.currentLang);
   }
 }
