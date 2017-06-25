@@ -3,10 +3,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule, Http } from '@angular/http';
 import { RouterModule } from '@angular/router';
-import { AlertModule } from 'ngx-bootstrap';
-import { BsDropdownModule } from 'ngx-bootstrap';
-import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
-import {TranslateHttpLoader} from '@ngx-translate/http-loader';
+import { AlertModule, BsDropdownModule, PaginationModule } from 'ngx-bootstrap';
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { CookieModule } from 'ngx-cookie';
 
 import { APP_ROUTES } from './app.routes';
@@ -45,6 +44,7 @@ export function HttpLoaderFactory(http: Http) {
     RouterModule.forRoot(APP_ROUTES),
     AlertModule.forRoot(),
     BsDropdownModule.forRoot(),
+    PaginationModule.forRoot(),
     CookieModule.forRoot(),
     TranslateModule.forRoot({
       loader: {

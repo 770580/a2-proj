@@ -5,13 +5,14 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
 
-import { Product } from '../_models/product.model';
+import { ProductRequestParams } from '../_models/products-request-params.model';
 
 @Injectable()
 export class ProductsService {
   constructor(private http: Http) { }
 
-  getProducts(lang: string, idList?: Array<number>, localize?: boolean): Observable<Product[]> {
+  getProducts(params: ProductRequestParams): Observable<any> {
+    const { lang, idList, localize, offset, count } = params;
     let productsUrl = `api/products?lang=${lang}`;
     if (idList && idList.length) {
       productsUrl += `&idList=${idList.join()}`;
@@ -19,9 +20,12 @@ export class ProductsService {
     if (localize) {
       productsUrl += '&localize';
     }
+    if (offset >= 0 && count) {
+      productsUrl += `&offset=${offset}&count=${count}`;
+    }
 
     return this.http.get(productsUrl)
-      .map((res: Response) => res.json().products || [])
+      .map((res: Response) => res.json() || {})
       .catch((error: Response) =>
         Observable.throw(error.json().error || 'Server error')
       );

@@ -70,10 +70,15 @@ export class ShoppingCartService {
   private renewProducts(lang: string) {
     this.pending = true;
     const idList: Array<number> = this.cartProducts.map(cP => cP.product.id);
-    this.productsService.getProducts(lang, idList, true).subscribe(
-      products => {
+    const params = {
+      lang,
+      idList,
+      localize: true
+    };
+    this.productsService.getProducts(params).subscribe(
+      data => {
         this.cartProducts.forEach(cP => {
-          const product = products.find(product => cP.product.id === product.id);
+          const product = data.products.find(product => cP.product.id === product.id);
           if (!product) { return; }
           cP.product.name = product.name;
           cP.product.description = product.description;
