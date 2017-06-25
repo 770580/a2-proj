@@ -30,7 +30,7 @@ export class ProductsComponent implements OnInit, OnDestroy {
   ) {
     const pageFromLS = Number(localStorage.getItem('page'));
     if (pageFromLS) {
-      this.router.navigate(['/products'], { queryParams: { page: pageFromLS } });
+      this.router.navigate(['/products'], { queryParams: { page: pageFromLS }, replaceUrl: true });
     }
 
     setTimeout(() => (
